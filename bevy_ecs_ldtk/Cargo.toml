@@ -8,13 +8,9 @@ repository = "https://github.com/Trouv/bevy_ecs_ldtk"
 license = "MIT OR Apache-2.0"
 keywords = ["bevy", "ldtk", "game", "gamedev", "map-editor"]
 categories = ["game-development"]
-exclude = ["assets/*", "repo/*", "scripts/*"]
-
-[workspace]
-members = ["macros"]
 
 [dependencies]
-bevy_ecs_ldtk_macros = { version = "0.4", optional = true, path = "macros" }
+bevy_ecs_ldtk_macros = { version = "0.4", optional = true, path = "../macros" }
 bevy_ecs_tilemap = "0.7"
 bevy = { version = "0.8", default-features = false, features = ["bevy_sprite"] }
 serde = { version = "1.0", features = ["derive"] }
