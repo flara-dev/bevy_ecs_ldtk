@@ -32,4 +32,4 @@ atlas = ["bevy_ecs_tilemap/atlas"]
 
 [[example]]
 name = "platformer"
-path = "examples/platformer/main.rs"
+path = "../examples/platformer/main.rs"
