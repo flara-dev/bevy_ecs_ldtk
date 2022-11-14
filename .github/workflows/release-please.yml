@@ -14,3 +14,4 @@ jobs:
           release-type: rust
           package-name: bevy_ecs_ldtk
           bump-minor-pre-major: true
+          default-branch: refactor/virtual-manifest
