@@ -36,10 +36,13 @@ fn main() {
         )
         .add_plugin(LdtkPlugin)
         .insert_resource(LevelSelection::default())
-        .add_startup_system(setup)
-        .add_system(mother::resolve_mother_references)
+        .add_systems(Startup, setup)
+        .add_systems(Update, mother::resolve_mother_references)
         .init_resource::<level_title::LevelTitle>()
-        .add_system(level_title::set_level_title_to_current_level.run_if(on_event::<LevelEvent>()))
+        .add_systems(
+            Update,
+            level_title::set_level_title_to_current_level.run_if(on_event::<LevelEvent>()),
+        )
         .register_ldtk_entity::<enemy::EnemyBundle>("Enemy")
         // The rest of this is bevy_inspector_egui boilerplate
         .add_plugin(WorldInspectorPlugin::new())

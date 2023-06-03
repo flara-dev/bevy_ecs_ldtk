@@ -8,8 +8,8 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
         .add_plugin(LdtkPlugin)
-        .add_startup_system(setup)
-        .add_system(process_my_entity)
+        .add_systems(Startup, setup)
+        .add_systems(Update, process_my_entity)
         .insert_resource(LevelSelection::Index(0))
         .run();
 }

@@ -44,14 +44,14 @@ impl Plugin for LdtkPlugin {
         }
 
         app.configure_set(
+            Update,
             LdtkSystemSet::ProcessApi
                 .after(CoreSet::UpdateFlush)
                 .before(CoreSet::PostUpdate),
         )
         .configure_sets(
-            (ProcessApiSet::PreClean, ProcessApiSet::Clean)
-                .chain()
-                .in_base_set(LdtkSystemSet::ProcessApi),
+            LdtkSystemSet::ProcessApi,
+            (ProcessApiSet::PreClean, ProcessApiSet::Clean).chain(),
         )
         .init_non_send_resource::<app::LdtkEntityMap>()
         .init_non_send_resource::<app::LdtkIntCellMap>()
@@ -62,21 +62,27 @@ impl Plugin for LdtkPlugin {
         .init_asset_loader::<assets::LdtkLevelLoader>()
         .add_event::<resources::LevelEvent>()
         .add_systems(
-            (systems::process_ldtk_assets, systems::process_ldtk_levels)
-                .in_base_set(CoreSet::PreUpdate),
+            PreUpdate,
+            (systems::process_ldtk_assets, systems::process_ldtk_levels),
         )
-        .add_system(systems::worldly_adoption.in_set(ProcessApiSet::PreClean))
         .add_systems(
+            Update,
+            systems::worldly_adoption.in_set(ProcessApiSet::PreClean),
+        )
+        .add_systems(
+            Update,
             (systems::apply_level_selection, systems::apply_level_set)
                 .chain()
                 .in_set(ProcessApiSet::PreClean),
         )
         .add_systems(
-            (apply_system_buffers, systems::clean_respawn_entities)
+            Update,
+            (apply_deferred, systems::clean_respawn_entities)
                 .chain()
                 .in_set(ProcessApiSet::Clean),
         )
-        .add_system(
+        .add_systems(
+            Update,
             systems::detect_level_spawned_events
                 .pipe(systems::fire_level_transformed_events)
                 .in_base_set(CoreSet::PostUpdate),

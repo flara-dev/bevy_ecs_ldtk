@@ -45,7 +45,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugin(LdtkPlugin)
-        .add_startup_system(setup)
+        .add_systems(Startup, setup)
         .insert_resource(LevelSelection::Index(0))
         .register_ldtk_entity::<MyBundle>("MyEntityIdentifier")
         .run();

@@ -12,8 +12,8 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugin(LdtkPlugin)
-        .add_startup_system(setup)
-        .add_system(toggle_levels)
+        .add_systems(Startup, setup)
+        .add_systems(Update, toggle_levels)
         // No LevelSelection resource!
         .insert_resource(LdtkSettings {
             // By default, levels are just spawned at the origin of the world.
