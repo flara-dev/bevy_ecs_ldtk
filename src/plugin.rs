@@ -82,10 +82,9 @@ impl Plugin for LdtkPlugin {
                 .in_set(ProcessApiSet::Clean),
         )
         .add_systems(
-            Update,
+            PostUpdate,
             systems::detect_level_spawned_events
                 .pipe(systems::fire_level_transformed_events)
-                .in_base_set(CoreSet::PostUpdate),
         )
         .register_type::<components::GridCoords>()
         .register_type::<components::TileMetadata>()

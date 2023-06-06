@@ -47,7 +47,7 @@
 //!     a: ComponentA,
 //!     b: ComponentB,
 //!     #[sprite_sheet_bundle]
-//!     #[bundle]
+//!     
 //!     sprite_bundle: SpriteSheetBundle,
 //! }
 //! ```

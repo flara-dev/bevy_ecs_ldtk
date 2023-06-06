@@ -16,7 +16,7 @@ members = ["macros"]
 [dependencies]
 bevy_ecs_ldtk_macros = { version = "0.7.0", optional = true, path = "macros" }
 bevy_ecs_tilemap = { git = "https://github.com/flara-dev/bevy_ecs_tilemap.git", default-features = false }
-bevy = { git = "https://github.com/flara-dev/bevy.git", version = "0.11.0-dev", default-features = false, features = ["bevy_sprite"] }
+bevy = { version = "0.11.0-dev",  default-features = false, features = ["bevy_sprite"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 regex = "1"
@@ -26,10 +26,10 @@ thiserror = "1.0"
 paste = "1.0"
 
 [dev-dependencies]
-bevy = { git = "https://github.com/flara-dev/bevy.git", version = "0.11.0-dev", }
+bevy = { version = "0.11.0-dev" }
 bevy_rapier2d = { git = "https://github.com/flara-dev/bevy_rapier.git" }
 rand = "0.8"
-bevy-inspector-egui = "0.18"
+# bevy-inspector-egui = "0.18"
 
 [features]
 default = ["derive", "render"]
@@ -49,5 +49,9 @@ path = "examples/field_instances/main.rs"
 [patch."https://github.com/flara-dev/bevy_ecs_tilemap.git"]
 bevy_ecs_tilemap = { path = "../bevy_ecs_tilemap" }
 
+[patch.crates-io]
+bevy_ecs_tilemap = { path = "../bevy_ecs_tilemap"}
+bevy = { path = "../bevy" }
 [patch."https://github.com/flara-dev/bevy_rapier.git"]
-bevy_rapier2d = { path = "../bevy_rapier" }
+bevy_rapier2d = { path = "../bevy_rapier/bevy_rapier2d" }
+
