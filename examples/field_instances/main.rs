@@ -21,7 +21,7 @@
 
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
-use bevy_inspector_egui::quick::WorldInspectorPlugin;
+//use bevy_inspector_egui::quick::WorldInspectorPlugin;
 
 mod enemy;
 mod equipment;
@@ -45,7 +45,7 @@ fn main() {
         )
         .register_ldtk_entity::<enemy::EnemyBundle>("Enemy")
         // The rest of this is bevy_inspector_egui boilerplate
-        .add_plugin(WorldInspectorPlugin::new())
+        //        .add_plugin(WorldInspectorPlugin::new())
         .register_type::<health::Health>()
         .register_type::<equipment::EquipmentDrops>()
         .register_type::<mother::LdtkEntityIid>()
