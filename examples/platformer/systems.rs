@@ -1,4 +1,4 @@
-use crate::components::*;
+/*use crate::components::*;
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 
@@ -488,3 +488,4 @@ pub fn restart_level(
         }
     }
 }
+*/

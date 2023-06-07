@@ -1,4 +1,4 @@
-// This example shows off a more in-depth implementation of a game with `bevy_ecs_ldtk`.
+/*// This example shows off a more in-depth implementation of a game with `bevy_ecs_ldtk`.
 // Please run with `--release`.
 
 use bevy::prelude::*;
@@ -52,4 +52,9 @@ fn main() {
         .register_ldtk_entity::<components::ChestBundle>("Chest")
         .register_ldtk_entity::<components::PumpkinsBundle>("Pumpkins")
         .run();
+}
+*/
+
+fn main(){
+    panic!("Rapier isn't available")
 }

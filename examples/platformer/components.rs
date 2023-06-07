@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+/*use bevy::prelude::*;
 use bevy_ecs_ldtk::{prelude::*, utils::ldtk_pixel_coords_to_translation_pivoted};
 
 use std::collections::HashSet;
@@ -230,4 +230,9 @@ pub struct GroundDetection {
 pub struct GroundSensor {
     pub ground_detection_entity: Entity,
     pub intersecting_ground_entities: HashSet<Entity>,
+}
+*/
+
+fn main(){
+    panic!("Rapier is not available")
 }
