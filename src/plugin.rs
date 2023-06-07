@@ -4,7 +4,6 @@ use bevy::prelude::*;
 
 /// Base [SystemSet]s for systems added by the plugin.
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Hash, SystemSet)]
-#[system_set(base)]
 pub enum LdtkSystemSet {
     /// Scheduled after [CoreSet::UpdateFlush].
     ///
@@ -43,52 +42,46 @@ impl Plugin for LdtkPlugin {
             app = app.add_plugin(bevy_ecs_tilemap::TilemapPlugin);
         }
 
-        app.configure_set(
-            Update,
-            LdtkSystemSet::ProcessApi
-                .after(CoreSet::UpdateFlush)
-                .before(CoreSet::PostUpdate),
-        )
-        .configure_sets(
-            LdtkSystemSet::ProcessApi,
-            (ProcessApiSet::PreClean, ProcessApiSet::Clean).chain(),
-        )
-        .init_non_send_resource::<app::LdtkEntityMap>()
-        .init_non_send_resource::<app::LdtkIntCellMap>()
-        .init_resource::<resources::LdtkSettings>()
-        .add_asset::<assets::LdtkAsset>()
-        .init_asset_loader::<assets::LdtkLoader>()
-        .add_asset::<assets::LdtkLevel>()
-        .init_asset_loader::<assets::LdtkLevelLoader>()
-        .add_event::<resources::LevelEvent>()
-        .add_systems(
-            PreUpdate,
-            (systems::process_ldtk_assets, systems::process_ldtk_levels),
-        )
-        .add_systems(
-            Update,
-            systems::worldly_adoption.in_set(ProcessApiSet::PreClean),
-        )
-        .add_systems(
-            Update,
-            (systems::apply_level_selection, systems::apply_level_set)
-                .chain()
-                .in_set(ProcessApiSet::PreClean),
-        )
-        .add_systems(
-            Update,
-            (apply_deferred, systems::clean_respawn_entities)
-                .chain()
-                .in_set(ProcessApiSet::Clean),
-        )
-        .add_systems(
-            PostUpdate,
-            systems::detect_level_spawned_events
-                .pipe(systems::fire_level_transformed_events)
-        )
-        .register_type::<components::GridCoords>()
-        .register_type::<components::TileMetadata>()
-        .register_type::<components::TileEnumTags>()
-        .register_type::<components::LayerMetadata>();
+        app.configure_set(PostUpdate, LdtkSystemSet::ProcessApi)
+            .configure_sets(
+                PostUpdate,
+                (ProcessApiSet::PreClean, ProcessApiSet::Clean).chain(),
+            )
+            .init_non_send_resource::<app::LdtkEntityMap>()
+            .init_non_send_resource::<app::LdtkIntCellMap>()
+            .init_resource::<resources::LdtkSettings>()
+            .add_asset::<assets::LdtkAsset>()
+            .init_asset_loader::<assets::LdtkLoader>()
+            .add_asset::<assets::LdtkLevel>()
+            .init_asset_loader::<assets::LdtkLevelLoader>()
+            .add_event::<resources::LevelEvent>()
+            .add_systems(
+                PreUpdate,
+                (systems::process_ldtk_assets, systems::process_ldtk_levels),
+            )
+            .add_systems(
+                Update,
+                systems::worldly_adoption.in_set(ProcessApiSet::PreClean),
+            )
+            .add_systems(
+                Update,
+                (systems::apply_level_selection, systems::apply_level_set)
+                    .chain()
+                    .in_set(ProcessApiSet::PreClean),
+            )
+            .add_systems(
+                Update,
+                (apply_deferred, systems::clean_respawn_entities)
+                    .chain()
+                    .in_set(ProcessApiSet::Clean),
+            )
+            .add_systems(
+                PostUpdate,
+                systems::detect_level_spawned_events.pipe(systems::fire_level_transformed_events),
+            )
+            .register_type::<components::GridCoords>()
+            .register_type::<components::TileMetadata>()
+            .register_type::<components::TileEnumTags>()
+            .register_type::<components::LayerMetadata>();
     }
 }
